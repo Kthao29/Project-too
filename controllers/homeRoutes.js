@@ -1,25 +1,69 @@
 const router = require('express').Router();
-const { User } = require('../models');
-const withAuth = require('../utils/auth');
+const { User, Project, Comment } = require('../models');
 
-router.get('/', withAuth, async (req, res) => {
+
+// controller to load homepage
+router.get('/', async (req, res) => {
   try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['name', 'ASC']],
+    const projectData = await Project.findAll({
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        }
+      ]
     });
 
-    const users = userData.map((project) => project.get({ plain: true }));
+    const projects = projectData.map((project) => project.get({ plain: true }));
 
     res.render('homepage', {
-      users,
+      projects,
       logged_in: req.session.logged_in,
     });
+    res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// controller to load project page by the project ID
+router.get('/project/:id', async (req, res) => {
+  try {
+    const projectData = await Project.findByPk(req.params.id, {
+      include: [
+        {
+          model: User, 
+          attributes: { exclude: ['password'] }
+        }
+      ]
+    });
+    const commentData = await Comment.findAll({
+      where: {
+        project_id: req.params.id, 
+      },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] }
+        }
+      ]
+    });
+
+    const projects = projectData.get({ plain: true });
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+
+    res.render('project', {
+      ...projects,
+      comments, 
+      logged_in: req.session.logged_in
+    });
+    res.status(200).json('Request Successful')
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// controller to load the login page
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
     res.redirect('/');
