@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
-const { User, Project } = require('../../models');
-const withAuth = require('../../utils/auth')
+const { Project } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 
 
@@ -52,4 +52,6 @@ router.delete('/:id', withAuth, async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     };
-})
+});
+
+module.exports = router;

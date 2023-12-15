@@ -26,6 +26,7 @@ router.get('/:id', withAuth, async (req, res) => {
   }
 });
 
+// controller to load the logged in user's profile page
 router.get('/my_profile', withAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.sesssion.user_id, {
