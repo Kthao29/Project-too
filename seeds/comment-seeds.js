@@ -14,7 +14,7 @@ const commentData = [{
     {
         comment_text: "This is so-so...",
         user_id: 3,
-        _id: 3
+        project_id: 3
     }
 ];
 

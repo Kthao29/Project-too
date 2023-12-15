@@ -16,7 +16,7 @@ Project.init(
             allowNull: false
         },
         body: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: false
         }, 
         user_id: {

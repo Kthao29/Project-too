@@ -7,10 +7,10 @@ const seedUsers = require('./user-seeds');
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
-  await seedComments();
-  await seedProjects();
   await seedUsers();
-  
+  await seedProjects();
+  await seedComments();
+    
   process.exit(0);
 };
 
