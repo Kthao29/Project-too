@@ -4,6 +4,11 @@ const { User, Project, Comment } = require('../models');
 
 // controller to load homepage
 router.get('/', async (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect('/login');
+    return;
+  }
+  
   try {
     const projectData = await Project.findAll({
       include: [
@@ -69,6 +74,25 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+//controller to load the signup page
+router.get('/signup', (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('signup');
+});
+
+//controller to load the new post page
+router.get('/post', (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect('/login');
+    return;
+  }
+  res.render('post');
 });
 
 module.exports = router;

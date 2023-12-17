@@ -4,31 +4,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Too</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title>CreateLab</title>
+  <link rel="icon" href="/images/createLab-logo-icon-b.svg">
+  <link rel="stylesheet" href="/css/mystyles.css">
+  <link rel="stylesheet" href="/css/custom.css">
 </head>
 
 <body>
-  <header>
-    <h1>
-      Project Too
-    </h1>
-    {{#if logged_in}}
-    <nav>
-      <button class="btn" id="logout">logout</button>
-    </nav>
-    {{/if}}
-  </header>
+
+  {{!-- NAVBAR --}}
+  <nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    {{!-- LOGO --}}
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/images/createLab-logo-full-w.svg" width="200">
+      </a>
+
+      {{!-- BURGER MENU STUFF IF WE WANT TO IMPLEMENT THAT --}}
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    {{!-- NAVBAR LINKS --}}
+    <div id="navbar" class="navbar-menu {{!-- is-active --}}">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-white" href="/">
+          Home
+        </a>
+
+        <a class="navbar-item has-text-white" href="/categories">
+          Browse
+        </a>
+
+        <a class="navbar-item has-text-white" href="/api/users/my_profile">
+          Dashboard
+        </a>
+
+        <a class="navbar-item bold hover-blue" href="/post">
+          Create Post+
+        </a>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {{#if logged_in}}
+            <a class="button is-light" id="logout">Log Out</a>
+            {{else}}
+            <a class="button is-primary" href="/login"><strong>Log in</strong></a>
+            <a class="button is-light" href="/signup">Sign up</a>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <main>
     {{{ body }}}
   </main>
-  <footer>
-      
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>CreateLab</strong> by Group 2. <a href="https://github.com/Kthao29/Project-too">Checkout the GitHub repo here.</a> © 2023 CreateLab - All rights reserved.
+      </p>
+    </div>
   </footer>
 
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
   {{/if}}
+
+
 </body>
 
 </html>

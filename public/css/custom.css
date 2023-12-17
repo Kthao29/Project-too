@@ -1,0 +1,134 @@
+/*Variables*/
+:root {
+    --blue: #004FFF;
+    --white: #F1EDF2;
+    --rose: #FF007F;
+    --darkrose: #D90368;
+}
+
+html {
+
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: #f1edf2;
+    opacity: 1;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #f1edf2 10px ), repeating-linear-gradient( #ccdbff55, #ccdbff );
+}
+
+hr {
+    background:gainsboro;
+}
+
+/*Custom Classes*/
+.navbar {
+    height: 4.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.55);
+}
+
+.navbar-brand {
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-item img {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.post {
+    border-left: solid 4px black;
+}
+
+.comment {
+    margin-left: 2.25rem !important;
+    border-left: solid 4px var(--rose);
+    background: ghostwhite;
+}
+
+.hero {
+    width: 100%;
+}
+.hero-body {
+    justify-content: center;
+}
+
+.content-header {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: black;
+}
+
+.post-preview:hover {
+    background-color: ghostwhite;
+    cursor: pointer;
+}
+
+.wide {
+    min-width: 60%;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.has-text-blue {
+    color: var(--blue) !important;
+}
+
+.hover-blue:hover {
+    color: var(--blue) !important;
+}
+
+.has-text-rose {
+    color: var(--rose) !important;
+}
+
+.has-text-darkrose {
+    color: var(--darkrose) !important;
+}
+
+.bg-login {
+    background-image: url("../images/login-bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.bg-pattern {
+    background-color: #f1edf2;
+    opacity: 1;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #f1edf2 10px ), repeating-linear-gradient( #ccdbff55, #ccdbff );
+}
+
+.bg-darken {
+    background-color: rgba(0, 0, 0, 0.55);
+    border-radius: 8px;
+    padding: 2.5rem;
+}
+
+.bg-lighten {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    padding: 2.5rem;
+}
+
+.single-column {
+    display: flex;
+    flex-direction: column;
+    align-items:stretch;
+    align-self: center;
+    width: 80%;
+}
+
+@media screen and (max-width: 1023px) {
+    .navbar-brand {
+        width: 100%;
+    }
+}
