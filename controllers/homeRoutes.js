@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Project, Comment } = require('../models');
+const withAuth = require('../../utils/auth');
 
 
 // controller to load homepage
@@ -95,6 +96,54 @@ router.get('/post', (req, res) => {
   res.render('post', {
     logged_in: req.session.logged_in,
   });
+});
+
+// controller to load the logged in user's profile page
+router.get('/mylab', async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, {
+      include: [
+        {
+          model: Project, 
+          attributes: [ 'title', 'body' ],
+        }
+      ]
+    });
+
+    const user = userData.get({ plain: true });
+    console.log(user);
+
+    res.render('dashboard', {
+      ...user,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
+// controller to load the profile page of a user and pull in their projects
+router.get('/:id', withAuth, async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Project, 
+          attributes: [ 'title', 'body' ]
+        }
+      ]
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('profile', {
+      ...user,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err)
+  }
 });
 
 module.exports = router;
