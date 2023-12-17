@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
       projects,
       logged_in: req.session.logged_in,
     });
-    // res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err);
   }
@@ -94,7 +93,9 @@ router.get('/post', (req, res) => {
     res.redirect('/login');
     return;
   }
-  res.render('post');
+  res.render('homepage', {
+    logged_in: req.session.logged_in,
+  });
 });
 
 module.exports = router;
