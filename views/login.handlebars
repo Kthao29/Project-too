@@ -1,17 +1,48 @@
-<h2>Login</h2>
+{{!-- HERO BANNER --}}
+<section class="hero is-fullheight bg-login">
+  <div class="hero-body">
+    <div class="bg-lighten">
 
-<form class="form login-form">
-  <div class="form-group">
-    <label for="email-login">email:</label>
-    <input class="form-input" type="text" id="email-login" />
+      {{!-- LOGO --}}
+      <img  class="mb-5" src="/images/createLab-logo-full-b-alt.svg" alt="CreateLab Main Logo" width="600px">
+      
+      {{!-- LOGIN FORM --}}
+      <form class="form login-form">
+        <div class="card">
+          <div class="card-content">
+            
+            {{!-- EMAIL INPUT --}}
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Please enter your email." id="email-login">
+              </div>
+            </div>
+            
+            {{!-- PASSWORD INPUT --}}
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" placeholder="Please enter your password." id="password-login">
+              </div>
+            </div>
+            
+            {{!-- SUBMIT BUTTON --}}
+            <div class="field">
+              <div class="control">
+                <button class="button is-link" type="submit">Log In</button>
+              </div>
+            </div>
+
+            <a href="/signup">Don't have an account? Sign up here!</a>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="password-login">password:</label>
-    <input class="form-input" type="password" id="password-login" />
+</section>
+
   </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">login</button>
-  </div>
-</form>
+</div>
 
 <script src="/js/login.js"></script>
