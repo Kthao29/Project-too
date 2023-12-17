@@ -1,54 +1,10 @@
 const router = require('express').Router();
 const { User, Project } = require('../../models');
 const withAuth = require('../../utils/auth');
+const multerParse = require('../../utils/helpers')
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
-// controller to load the profile page of a user and pull in their projects
-router.get('/:id', withAuth, async (req, res) => {
-  try {
-    const userData = await User.findByPk(req.params.id, {
-      include: [
-        {
-          model: Project, 
-          attributes: [ 'model', 'body' ]
-        }
-      ]
-    });
-
-    const user = userData.map((users) => users.get({ plain: true }));
-
-    res.render('profile', {
-      ...user,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err)
-  }
-});
-
-// controller to load the logged in user's profile page
-router.get('/my_profile', withAuth, async (req, res) => {
-  try {
-    const userData = await User.findByPk(req.sesssion.user_id, {
-      include: [
-        {
-          model: Project, 
-          attributes: [ 'model', 'body' ]
-        }
-      ]
-    });
-
-    const user = userData.map((users) => users.get({ plain: true }));
-
-    res.render('profile', {
-      ...user,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err)
-  }
-});
 
 // Path to create new user
 router.post('/', upload.single('file'), async (req, res) => {
@@ -63,7 +19,7 @@ router.post('/', upload.single('file'), async (req, res) => {
       req.session.user_id = dbUserData.id  
       req.session.logged_in = true;
 
-      res.status(200).json(dbUserData);
+      res.status(200).json(req.file);
     });
   } catch (err) {
     console.log(err);

@@ -1,14 +1,16 @@
-module.exports = {
-  get_emoji: () => {
-    const randomNum = Math.random();
-    let book = "📗";
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
-    if (randomNum > 0.7) {
-      book = "📘";
-    } else if (randomNum > 0.4) {
-      book = "📙";
-    }
+const multerParse = (req, res, next) => {
+  if (req.file) {
+    upload.single('file');
+    next();
+  } else if (!req.file) {
+    upload.none();
+    next();
+  } else {
+    next();
+  }
+}
 
-    return `<span for="img" aria-label="book">${book}</span>`;
-  },
-};
+module.exports = multerParse
