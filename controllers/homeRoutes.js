@@ -92,7 +92,7 @@ router.get('/post', (req, res) => {
     res.redirect('/login');
     return;
   }
-  res.render('homepage', {
+  res.render('post', {
     logged_in: req.session.logged_in,
   });
 });
