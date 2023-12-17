@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { User, Project } = require('../../models');
 const withAuth = require('../../utils/auth');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 // controller to load the profile page of a user and pull in their projects
 router.get('/:id', withAuth, async (req, res) => {
@@ -20,7 +22,6 @@ router.get('/:id', withAuth, async (req, res) => {
       ...user,
       logged_in: req.session.logged_in
     });
-    res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err)
   }
@@ -44,14 +45,13 @@ router.get('/my_profile', withAuth, async (req, res) => {
       ...user,
       logged_in: req.session.logged_in
     });
-    res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err)
   }
 });
 
 // Path to create new user
-router.post('/', async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   try {
     const dbUserData = await User.create({
       name: req.body.username,

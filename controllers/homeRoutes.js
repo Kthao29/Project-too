@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
       projects,
       logged_in: req.session.logged_in,
     });
-    // res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err);
   }
@@ -62,7 +61,6 @@ router.get('/project/:id', async (req, res) => {
       comments, 
       logged_in: req.session.logged_in
     });
-    res.status(200).json('Request Successful')
   } catch (err) {
     res.status(500).json(err);
   }
