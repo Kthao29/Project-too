@@ -1,14 +1,12 @@
 const router = require('express').Router();
-const multer  = require('multer');
-const upload = multer({ dest: 'uploads/' });
-
 const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
+const { projectFiles } = require('../../utils/multerStorage');
 
 
 
 // Controller to create a new project
-router.post('/', withAuth, async (req, res) => {
+router.post('/', [withAuth, projectFiles.any('file')], async (req, res) => {
     try {
         const newProject = await Project.create({
             ...req.body, 
@@ -22,7 +20,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 //Controller to update an existing project
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', [withAuth, projectFiles.any('file')], async (req, res) => {
     try {
         await Project.update(req.body, {
             where: {id: req.params.id}
