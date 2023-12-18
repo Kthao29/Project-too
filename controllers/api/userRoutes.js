@@ -1,13 +1,11 @@
 const router = require('express').Router();
 const { User, Project } = require('../../models');
 const withAuth = require('../../utils/auth');
-const multerParse = require('../../utils/helpers')
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+const { profiles } = require('../../utils/multerStorage')
 
 
 // Path to create new user
-router.post('/', upload.single('file'), async (req, res) => {
+router.post('/', profiles.single('file'), async (req, res) => {
   try {
     const dbUserData = await User.create({
       name: req.body.username,

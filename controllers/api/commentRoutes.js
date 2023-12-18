@@ -1,12 +1,10 @@
 const router = require('express').Router();
-const multer  = require('multer');
-const upload = multer({ dest: 'uploads/' });
-
+const { commentFiles } = require('../../utils/multerStorage') 
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // Post path to create new comments under a given project
-router.post('/', withAuth, async (req, res) => {
+router.post('/', [withAuth, commentFiles.any('file')], async (req, res) => {
     try {
         const newComment = await Comment.create({
             ...req.body,
@@ -20,7 +18,7 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // Put path to update exisiting comments
-router.put('/:id', withAuth, async (req, res) => {
+router.put('/:id', [withAuth, commentFiles.any('file')], async (req, res) => {
     try {
         await Comment.update(req.body, {
             where: {id: req.params.id}

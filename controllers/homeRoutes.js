@@ -1,15 +1,10 @@
 const router = require('express').Router();
 const { User, Project, Comment } = require('../models');
-const withAuth = require('../../utils/auth');
+const withAuth = require('../utils/auth');
 
 
 // controller to load homepage
-router.get('/', async (req, res) => {
-  if (!req.session.logged_in) {
-    res.redirect('/login');
-    return;
-  }
-  
+router.get('/', withAuth, async (req, res) => {
   try {
     const projectData = await Project.findAll({
       include: [
@@ -88,11 +83,7 @@ router.get('/signup', (req, res) => {
 });
 
 //controller to load the new post page
-router.get('/post', (req, res) => {
-  if (!req.session.logged_in) {
-    res.redirect('/login');
-    return;
-  }
+router.get('/post', withAuth, (req, res) => {
   res.render('post', {
     logged_in: req.session.logged_in,
   });
@@ -102,6 +93,7 @@ router.get('/post', (req, res) => {
 router.get('/mylab', async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
       include: [
         {
           model: Project, 
@@ -127,6 +119,7 @@ router.get('/mylab', async (req, res) => {
 router.get('/:id', withAuth, async (req, res) => {
   try {
     const userData = await User.findByPk(req.params.id, {
+      attributes: { exclude: ['password'] },
       include: [
         {
           model: Project, 
