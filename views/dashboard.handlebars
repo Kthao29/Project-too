@@ -6,6 +6,22 @@
       {{!-- HEADER --}}
       <p class="title is-4">My Dashboard</p>
 
+      <p>Welcome, {{name}}</p>
+    
+        {{!-- USER-OWNED PROJECT PREVIEW (HAS EDIT/DELETE OPTIONS)--}}
+        {{#each projects as |project|}}
+        <div class="card m-4">
+            <div class="card-content post-preview">
+                <p class="title is-4">{{this.title}}</p>
+                <p class="subtitle">{{../name}} // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
+            </div>
+            <div class="card-footer">
+                <a class="card-footer-item">Edit</a>
+                <a class="card-footer-item has-text-danger">Delete</a>
+            </div>
+        </div>
+        {{/each}}
+
     </div>
   </div>
 </section>
