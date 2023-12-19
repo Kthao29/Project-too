@@ -7,63 +7,64 @@
       <img  class="mb-5" src="/images/createLab-logo-full-b-alt.svg" alt="CreateLab Main Logo" width="600px">
       
       {{!-- SIGN UP FORM --}}
-      <form class="form signup-form" action="/profile" method="post" enctype="multipart/form-data">
-  <input type="file" name="avatar" />
-</form>>
-        <div class="card">
-          <div class="card-content">
+  <form class="form signup-form" action="/profile" method="post" enctype="multipart/form-data">
+    <input type="file" name="avatar" />
 
-            {{!-- NAME INPUT --}}
-            <div class="field">
-              <label class="label">Name</label>
-              <div class="control">
-                <input class="input username-signup" type="text" placeholder="Enter a username">
-              </div>
-            </div>
+          <div class="card">
+            <div class="card-content">
 
-            {{!-- PROFILE PHOTO UPLOAD --}}
-            <div class="field">
-                <label class="label">Profile Picture</label>
-                <div class="file has-name">
-                    <label class="file-label">
-                        <input class="file-input" type="file" name="resume">
-                        <span class="file-cta">
-                            <span class="file-label">⬆📁</span>
-                        </span>
-                        <span class="file-name">file-placeholder.jpg</span>
-                    </label>
+              {{!-- NAME INPUT --}}
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input username-signup" type="text" placeholder="Enter a username">
                 </div>
-            </div>
-            
-            {{!-- EMAIL INPUT --}}
-            <div class="field">
-              <label class="label">Email</label>
-              <div class="control">
-                <input class="input email-signup" type="text" placeholder="Enter your email">
               </div>
-            </div>
-            
-            {{!-- PASSWORD INPUT --}}
-            <div class="field">
-              <label class="label">Password</label>
-              <div class="control">
-                <input class="input password-signup" type="password" placeholder="Set your password">
-              </div>
-            </div>
-            
-            {{!-- SUBMIT BUTTON --}}
-            <div class="field">
-              <div class="control">
-                <button class="button is-link" type="submit">Sign Up</button>
-              </div>
-            </div>
 
-            <a href="/login">Already have an account? Log in here!</a>
+              {{!-- PROFILE PHOTO UPLOAD --}}
+              <div class="field">
+                  <label class="label">Profile Picture</label>
+                  <div class="file has-name">
+                      <label class="file-label">
+                          <input class="file-input" type="file" name="resume">
+                          <span class="file-cta">
+                              <span class="file-label">⬆📁</span>
+                          </span>
+                          <span class="file-name">file-placeholder.jpg</span>
+                      </label>
+                  </div>
+              </div>
+              
+              {{!-- EMAIL INPUT --}}
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input class="input email-signup" type="text" placeholder="Enter your email">
+                </div>
+              </div>
+              
+              {{!-- PASSWORD INPUT --}}
+              <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                  <input class="input password-signup" type="password" placeholder="Set your password">
+                </div>
+              </div>
+              
+              {{!-- SUBMIT BUTTON --}}
+              <div class="field">
+                <div class="control">
+                  <button class="button is-link" type="submit">Sign Up</button>
+                </div>
+              </div>
+
+              <a href="/login">Already have an account? Log in here!</a>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
+  </form>
 </section>
 
 <script src="/js/signup.js"></script>
