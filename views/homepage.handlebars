@@ -1,6 +1,16 @@
 <div class="container p-4">
 
 
+    {{!-- PROJECTS PULLED FROM DB--}}
+    {{#each projects as |project|}}
+    <div class="card m-4">
+        <div class="card-content post-preview">
+            <p class="title is-4">{{this.title}}</p>
+            <p class="subtitle">{{this.user.name}} // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
+        </div>
+    </div>
+    {{/each}}
+
     {{!-- NEW POST BUTTON --}}
     <a href="/post" class="button is-primary is-large bold">Create Post+</a>
     

@@ -34,6 +34,8 @@ router.get('/project/:id', async (req, res) => {
         {
           model: User, 
           attributes: { exclude: ['password'] }
+        }, {
+          model: Comment,
         }
       ]
     });
@@ -97,7 +99,7 @@ router.get('/mylab', async (req, res) => {
       include: [
         {
           model: Project, 
-          attributes: [ 'title', 'body' ],
+          attributes: [ 'id', 'title', 'body', 'user_id' ],
         }
       ]
     });
@@ -130,7 +132,7 @@ router.get('/:id', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    res.render('dashboard', {
       ...user,
       logged_in: req.session.logged_in
     });
