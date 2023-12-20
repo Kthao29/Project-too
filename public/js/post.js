@@ -31,7 +31,6 @@ const handlePostButtonClick = async () => {
                 document.location.replace(`/project/${newProjectID}`);
             }
 
-
         } catch (error) {
             console.error("There has been an error creating post.", error);
         }
@@ -45,3 +44,4 @@ postButton.addEventListener('click', (event) => {
     event.preventDefault();
     handlePostButtonClick();
 });
+

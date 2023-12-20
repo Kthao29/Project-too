@@ -34,7 +34,8 @@ router.get('/project/:id', async (req, res) => {
         {
           model: User, 
           attributes: { exclude: ['password'] }
-        }, {
+        }, 
+        {
           model: Comment,
         }
       ]

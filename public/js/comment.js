@@ -17,7 +17,7 @@ const addComment = async (event) => {
         const response = await fetch('/api/comments/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             body: JSON.stringify({
                 comment_text: commentBody,
