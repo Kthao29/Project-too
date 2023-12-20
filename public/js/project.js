@@ -14,10 +14,6 @@ const goToPost = async (event) => {
     }
 }
 
-// document.querySelectorAll(".post-preview").addEventListener('click', goToPost);
-
-// posts.forEach(el => el.addEventListener('click', goToPost));
-
 for (var i = 0; i < posts.length; i++) {
     posts[i].addEventListener('click', goToPost, false);
 }

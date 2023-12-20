@@ -1,11 +1,5 @@
 const postButton = document.querySelector('#postButton');
 
-// event listener for post button
-postButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    handlePostButtonClick();
-});
-
 // function for post button click
 const handlePostButtonClick = async () => {
 
@@ -45,35 +39,9 @@ const handlePostButtonClick = async () => {
     }
 };
 
-// event listener for edit button
-// editButton.addEventListener('click', () => {
-//     handleEditButtonClick(postId);
-// });
-
-// function for edit button click
-// const handleEditButtonClick = async () => {
-//     try {
-//         // retrieves post data
-//         const updatedTitle = document.getElementById('editTitleInput').value;
-//         const updatedBody = document.getElementById('editBodyInput').value;
-
-//         // sends a PUT request
-//         const response = await fetch(`api/projects/${postId}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'multipart/form-data',
-//             },
-//             body: JSON.stringify({
-//                 title: updatedTitle,
-//                 body: updatedBody,
-//             }),
-//         });
-
-//         // retrieves and logs post update
-//         const data = await response.json();
-//         console.log("Your post has been updated!", data);
-//     } catch (error) {
-//         console.error("Error updating post! Edit not saved.", error);
-//     }
-// };
+// event listener for post button
+postButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    handlePostButtonClick();
+});
 
