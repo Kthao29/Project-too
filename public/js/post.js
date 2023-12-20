@@ -18,11 +18,8 @@ const handlePostButtonClick = async () => {
         const postBody = document.getElementById('postBodyInput').value;
 
         // sends a POST request
-        const response = await fetch('api/posts', {
+        const response = await fetch('api/projects', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 title: postTitle,
                 body: postBody,
@@ -50,10 +47,10 @@ const handlePostButtonClick = async () => {
 //         const updatedBody = document.getElementById('editBodyInput').value;
 
 //         // sends a PUT request
-//         const response = await fetch(`api/postController/${postId}`, {
+//         const response = await fetch(`api/projects/${postId}`, {
 //             method: 'PUT',
 //             headers: {
-//                 'Content-Type': 'application/json',
+//                 'Content-Type': 'multipart/form-data',
 //             },
 //             body: JSON.stringify({
 //                 title: updatedTitle,
@@ -78,7 +75,7 @@ const handlePostButtonClick = async () => {
 // const handleDeleteButtonClick = async (postId) => {
 //     try {
 //         // sends a DELETE request to remove a specific post
-//         const response = await fetch(`api/posts/${postId}`, {
+//         const response = await fetch(`api/projects/${postId}`, {
 //             method: 'DELETE',
 //         });
 

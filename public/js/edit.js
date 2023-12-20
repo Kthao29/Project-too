@@ -18,7 +18,7 @@ const editFormHandler = async (event) => {
             postText
         }),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data'
         }
     });
     // checks response status

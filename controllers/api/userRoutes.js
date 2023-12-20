@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-const withAuth = require('../../utils/auth');
-//const { profiles } = require('../../utils/multerStorage')
+const { uploadFileToStorage } = require('../../utils/storage')
+const { getStorage } = require('firebase/storage');
 const { initializeApp } = require('firebase/app');
 const { firebaseConfig } = require('../../config/connection');
-const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require('firebase/storage');
 const multer  = require('multer');
 
 initializeApp(firebaseConfig);
@@ -20,37 +19,37 @@ const upload = multer({
 // Path to create new user
 router.post('/', upload.single('file'), async (req, res) => {
   try {
-    const storageRef = ref(storage, `profiles/${Date.now() + '-' + req.file.originalname}`);
-
-    const metadata = {
-      contentType: req.file.mimetype,
-    };
-
-    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
-
-    const downloadURL = await getDownloadURL(snapshot.ref);
-
     const dbUserData = await User.create({
       name: req.body.username,
       email: req.body.email,
       password: req.body.password,
     });
 
+    let downloadURL;
+
+    if (req.file) {
+        downloadURL = await uploadFileToStorage(storage, req.file, 'profiles');
+        //await User.update({filename: downloadURL}, {
+          //where: {id: dbUserData.id}
+        //})
+    }
+
     req.session.save(() => {
       req.session.user_id = dbUserData.id  
       req.session.logged_in = true;
 
-      res.send({
-        message: 'file uploaded to firebase storage',
-        name: req.file.originalname,
-        type: req.file.mimetype,
-        downloadURL: downloadURL
-    })
-    });
+      res.status(200).send({
+        message: 'User Created',
+        downloadURL
+        //name: req.file.originalname,
+        //type: req.file.mimetype,
+        //downloadURL: downloadURL
+        })
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  }
+  } 
 });
 
 // Path to login existing users
