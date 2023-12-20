@@ -1,11 +1,23 @@
 const router = require('express').Router();
-const { User, Project } = require('../../models');
-const withAuth = require('../../utils/auth');
-const { profiles } = require('../../utils/multerStorage')
+const { User } = require('../../models');
+const { uploadFileToStorage } = require('../../utils/storage')
+const { getStorage } = require('firebase/storage');
+const { initializeApp } = require('firebase/app');
+const { firebaseConfig } = require('../../config/connection');
+const multer  = require('multer');
+
+initializeApp(firebaseConfig);
+const storage = getStorage();
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // limit to 5MB
+  }
+});
 
 
 // Path to create new user
-router.post('/', profiles.single('file'), async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   try {
     const dbUserData = await User.create({
       name: req.body.username,
@@ -13,16 +25,31 @@ router.post('/', profiles.single('file'), async (req, res) => {
       password: req.body.password,
     });
 
+    let downloadURL;
+
+    if (req.file) {
+        downloadURL = await uploadFileToStorage(storage, req.file, 'profiles');
+        //await User.update({filename: downloadURL}, {
+          //where: {id: dbUserData.id}
+        //})
+    }
+
     req.session.save(() => {
       req.session.user_id = dbUserData.id  
       req.session.logged_in = true;
 
-      res.status(200).json(req.file);
-    });
+      res.status(200).send({
+        message: 'User Created',
+        downloadURL
+        //name: req.file.originalname,
+        //type: req.file.mimetype,
+        //downloadURL: downloadURL
+        })
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
-  }
+  } 
 });
 
 // Path to login existing users

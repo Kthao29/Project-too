@@ -58,11 +58,11 @@ const addComment = async (event, postId) => {
         const response = await fetch('/api/comments', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             body: JSON.stringify({
                 comment_text: commentText,
-                post_id: postId,
+                project_id: postId,
             }),
         });
 

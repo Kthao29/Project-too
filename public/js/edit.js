@@ -32,6 +32,7 @@ const editFormHandler = async (event) => {
             document.location.replace(`/mylab`);
         } catch (error) {
             console.error("Error updating post! Edit not saved.", error);
+
         }
     }
 };

@@ -37,7 +37,6 @@ const handlePostButtonClick = async () => {
                 document.location.replace(`/project/${newProjectID}`);
             }
 
-
         } catch (error) {
             console.error("There has been an error creating post.", error);
         }
@@ -59,10 +58,10 @@ const handlePostButtonClick = async () => {
 //         const updatedBody = document.getElementById('editBodyInput').value;
 
 //         // sends a PUT request
-//         const response = await fetch(`api/postController/${postId}`, {
+//         const response = await fetch(`api/projects/${postId}`, {
 //             method: 'PUT',
 //             headers: {
-//                 'Content-Type': 'application/json',
+//                 'Content-Type': 'multipart/form-data',
 //             },
 //             body: JSON.stringify({
 //                 title: updatedTitle,
@@ -77,3 +76,4 @@ const handlePostButtonClick = async () => {
 //         console.error("Error updating post! Edit not saved.", error);
 //     }
 // };
+
