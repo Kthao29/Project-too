@@ -1,12 +1,35 @@
 const router = require('express').Router();
-const { User, Project } = require('../../models');
+const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
-const { profiles } = require('../../utils/multerStorage')
+//const { profiles } = require('../../utils/multerStorage')
+const { initializeApp } = require('firebase/app');
+const { firebaseConfig } = require('../../config/connection');
+const { getStorage, ref, getDownloadURL, uploadBytesResumable } = require('firebase/storage');
+const multer  = require('multer');
+
+initializeApp(firebaseConfig);
+const storage = getStorage();
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // limit to 5MB
+  }
+});
 
 
 // Path to create new user
-router.post('/', profiles.single('file'), async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
   try {
+    const storageRef = ref(storage, `profiles/${Date.now() + '-' + req.file.originalname}`);
+
+    const metadata = {
+      contentType: req.file.mimetype,
+    };
+
+    const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
     const dbUserData = await User.create({
       name: req.body.username,
       email: req.body.email,
@@ -17,7 +40,12 @@ router.post('/', profiles.single('file'), async (req, res) => {
       req.session.user_id = dbUserData.id  
       req.session.logged_in = true;
 
-      res.status(200).json(req.file);
+      res.send({
+        message: 'file uploaded to firebase storage',
+        name: req.file.originalname,
+        type: req.file.mimetype,
+        downloadURL: downloadURL
+    })
     });
   } catch (err) {
     console.log(err);
