@@ -1,29 +1,30 @@
 {{!-- HERO BANNER --}}
-<section class="hero is-fullheight">
-  <div class="hero-body">
-    <div class="bg-lighten wide">
+    <div class="container">
 
-      {{!-- HEADER --}}
-      <p class="title is-4">My Dashboard</p>
+      <div class="bg-lighten wide mt-6">
 
-      <p>Welcome, {{name}}</p>
-    
+        {{!-- HEADER --}}
+        <p class="title is-4">{{name}}'s Dashboard</p>
+
+        {{!-- NEW POST BUTTON --}}
+        <a href="/post" class="button is-primary is-medium bold mb-4">Create Post+</a>
+
         {{!-- USER-OWNED PROJECT PREVIEW (HAS EDIT/DELETE OPTIONS)--}}
         {{#each projects as |project|}}
         <div class="card m-4">
-            <div class="card-content post-preview">
-                <p class="title is-4">{{this.title}}</p>
-                <p class="subtitle">{{../name}} // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
+            <div class="card-content post-preview" data-id="{{this.id}}">
+                <p class="title is-4" data-id="{{this.id}}">{{this.title}}</p>
+                <p class="subtitle" data-id="{{this.id}}">{{../name}} // <time datetime="2016-1-1" data-id="{{this.id}}">11:09 PM - 14 Dec 2023</time></p>
             </div>
             <div class="card-footer">
-                <a class="card-footer-item">Edit</a>
-                <a class="card-footer-item has-text-danger">Delete</a>
+                <a class="card-footer-item editBtn" data-id="{{this.id}}">Edit</a>
+                <a class="card-footer-item has-text-danger deleteBtn" data-id="{{this.id}}">Delete</a>
             </div>
         </div>
         {{/each}}
 
+      </div>
     </div>
-  </div>
-</section>
 
-<script src="/js/post.js"></script>
+<script src="/js/project.js"></script>
+<script src="/js/dashboard.js"></script>

@@ -1,136 +1,18 @@
-<div class="container p-4">
+    <div class="container m-4">
+
+        <p class="title is-4 mt-4">Recent Projects:</p>
 
 
-    {{!-- PROJECTS PULLED FROM DB--}}
-    {{#each projects as |project|}}
-    <div class="card m-4">
-        <div class="card-content post-preview">
-            <p class="title is-4">{{this.title}}</p>
-            <p class="subtitle">{{this.user.name}} // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
-        </div>
-    </div>
-    {{/each}}
-
-    {{!-- NEW POST BUTTON --}}
-    <a href="/post" class="button is-primary is-large bold">Create Post+</a>
-    
-    {{!-- USER-OWNED PROJECT PREVIEW (HAS EDIT/DELETE OPTIONS)--}}
-    <div class="card m-4">
-        <div class="card-content post-preview">
-            <p class="title is-4">I made this post! I can edit it!</p>
-            <p class="subtitle">@Username // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
-        </div>
-        <div class="card-footer">
-            <a class="card-footer-item">Edit</a>
-            <a class="card-footer-item has-text-danger">Delete</a>
-        </div>
-    </div>
-
-    {{!-- NON-OWNED PROJECT PREVIEW --}}
-    <div class="card m-4">
-        <div class="card-content post-preview">
-            <p class="title is-4">Someone else made this post! I can't edit it :o</p>
-            <p class="subtitle">@Username // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
-        </div>
-    </div>
-
-    {{!-- POST CARD EXAMPLE --}}
-    <div class="card post m-4">
-        <div class="card-content">
-            {{!-- HEADER --}}
-            <div class="media">
-                {{!-- PROFILE PICTURE --}}
-                <div class="media-left">
-                <figure class="image is-64x64">
-                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image">
-                </figure>
-                </div>
-                {{!-- POST TITLE/USERNAME --}}
-                <div class="media-content">
-                <p class="title is-4">Why Test Posts Are Very Important</p>
-                <p class="subtitle bold is-6">@username25 // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
-                </div>
-            </div>
-            <hr>
-            <div class="content has-text-black"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                <br><br>
-                <a>Download File here or whatever</a>
-                <br><br>
+        {{!-- PROJECTS PULLED FROM DB--}}
+        {{#each projects as |project|}}
+        <div class="card m-4">
+            <div class="card-content post-preview" data-id="{{this.id}}">
+                <p class="title is-4" data-id="{{this.id}}">{{this.title}}</p>
+                <p class="subtitle" data-id="{{this.id}}">{{this.user.name}} // <time datetime="2016-1-1" data-id="{{this.id}}">11:09 PM - 14 Dec 2023</time></p>
             </div>
         </div>
-        {{!-- CARD BUTTONS --}}
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item">Reply</a>
-                <a href="#" class="card-footer-item">Like 👍</a>
-            </footer>
-    </div>
-    
-    {{!-- POSTED COMMENT CARD EXAMPLE --}}
-    <div class="card comment m-4">
-        <div class="card-content">
-            {{!-- HEADER --}}
-            <div class="media">
-                {{!-- PROFILE PICTURE --}}
-                <div class="media-left">
-                <figure class="image is-48x48">
-                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image">
-                </figure>
-                </div>
-                {{!-- USERNAME/TIMESTAMP --}}
-                <div class="media-content">
-                <p class="title is-6 has-text-darkrose">@username42</p>
-                <p class="subtitle is-6 has-text-black">11:24 PM - 14 Dec 2023</p>
-                </div>
-            </div>
-            <hr>
-            {{!-- COMMENT BODY --}}
-            <div class="content has-text-black"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. Lorem ipsum? I hardly know er'! *slaps knee* 😂😂😂
-                <br><br>
-                {{!-- DOWNLOAD LINK (IF FILE ATTACHED) --}}
-                <a>Download File here or whatever</a>
-            </div>
-        </div>
+        {{/each}}
     </div>
 
-    {{!-- NEW COMMENT FORM --}}
-    <div class="card m-4">
-        <div class="card-content">
+<script src="/js/project.js"></script>
 
-                {{!-- TEXT AREA INPUT --}}
-                <div class="field">
-                    <label class="label has-text-blue bold">New Reply</label>
-                    <div class="control">
-                    <textarea class="textarea" placeholder="Write your comment here!"></textarea>
-                    </div>
-                </div>
-
-                {{!-- FILE UPLOAD --}}
-                <div class="field">
-                    <div class="file has-name">
-                        <label class="file-label">
-                            <input class="file-input" type="file" name="resume">
-                            <span class="file-cta">
-                                <span class="file-label">📁 Choose a file…</span>
-                            </span>
-                            <span class="file-name">Screen Shot 2017-07-29 at 15.54.25.png</span>
-                        </label>
-                    </div>
-                </div>
-
-                {{!-- SUBMIT/CANCEL BUTTONS --}}
-                <div class="field is-grouped">
-                <p class="control">
-                    <a class="button is-primary">
-                    Submit
-                    </a>
-                </p>
-                <p class="control">
-                    <a class="button is-light">
-                    Cancel
-                    </a>
-                </p>
-                </div>
-
-        </div>
-    </div>
-</div>

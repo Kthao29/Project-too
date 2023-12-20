@@ -65,6 +65,31 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
+// controller to load project page by ID into the editor
+router.get('/edit/:id', async (req, res) => {
+  try {
+    const projectData = await Project.findByPk(req.params.id, {
+      include: [
+        {
+          model: User, 
+          attributes: { exclude: ['password'] }
+        }, {
+          model: Comment,
+        }
+      ]
+    });
+
+    const projects = projectData.get({ plain: true });
+
+    res.render('edit', {
+      ...projects,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // controller to load the login page
 router.get('/login', (req, res) => {
   if (req.session.logged_in) {
