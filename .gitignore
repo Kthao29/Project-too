@@ -130,4 +130,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-/config/create-lab-4ba50-firebase-adminsdk-cezxn-a6f9296169.json
+./config/create-lab-4ba50-firebase-adminsdk-cezxn-a6f9296169.json
+
