@@ -9,9 +9,12 @@
 main {
     display: flex;
     justify-content: center;
+    min-height: 100vh;
     background-color: #f1edf2;
-    opacity: 1;
     background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #f1edf2 10px ), repeating-linear-gradient( #ccdbff55, #ccdbff );
+}
+body {
+    min-height: 100vh;
 }
 
 hr {
