@@ -1,83 +1,63 @@
-// loads DOM content
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // fetches posts from server
-        const response = await fetch('api/posts');
-        const posts = await response.json();
+const postBtn = document.querySelector('#postBtn');
+const cancelBtn = document.querySelector('#cancelBtn');
+const replyBtn = document.querySelector('#replyBtn');
 
-        for (const post of posts) {
-            displayPost(post);
-            await fetchAndDisplayComments(post.id);
-        }
-    } catch (error) {
-        console.error("Error fetching posts!", error);
-    }
-});
+const projectIdEl = document.querySelector('#projectID');
+const projectID = projectIdEl.getAttribute('data-postID');
 
-// function for displaying posts
-const displayPost = (post) => {
-    const postContainer = document.getElementById('posts-container');
-    const postElement = document.createElement('div');
-
-    // creates HTML for the post
-    postElement.innerHTML = `
-    <h1>${post.title}</h1>
-    <p>${post.body}</p>
-    <p>${post.username}</p>
-    `;
-    postContainer.appendChild(postElement);
-}
-
-// function for comment display
-const fetchAndDisplayComments = async (postId) => {
-    try {
-        // fetches comments for specific post
-        const response = await fetch(`/api/comments/${postId}`);
-        const comments = await response.json();
-
-        const commentsContainer = document.getElementById(`comments-container-${postId}`);
-
-        // displays comments
-        comments.forEach(comment => {
-            const commentElement = document.createElement('div');
-            commentElement.innerHTML = `<p>${comment.comment_text}</p>`;
-            commentsContainer.appendChild(commentElement);
-        });
-    } catch (error) {
-        console.error(`Error fetching comments for this post ${postId}`, error);
-    }
-};
+const newCommentForm = document.querySelector('.newCommentForm');
 
 // function for adding a comment
-const addComment = async (event, postId) => {
+const addComment = async (event) => {
     try {
-        event.preventDefault();
-        const commentText = document.getElementById(`commentText-${postId}`).value;
+
+        const commentBody = document.getElementById("commentBody").value;
 
         // sends POST request to server
-        const response = await fetch('/api/comments', {
+        const response = await fetch('/api/comments/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                comment_text: commentText,
-                post_id: postId,
+                comment_text: commentBody,
+                project_id: projectID,
             }),
         });
 
-        // retrieves and displays new comments
-        const comment = await response.json();
+        // retrieves and logs post
+        const data = await response.json();
+        console.log("New post has been created!", data);
 
-        const commentContainer = document.getElementById(`comments-container-${postId}`);
-        const commentElement = document.createElement('div');
-        commentElement.innerHTML = `<p>${comment.comment_text}</p>`;
-        commentContainer.appendChild(commentElement);
-
-        // clears input field after adding comment
-        document.getElementById(`commentText-${postId}`).value = '';
+        // refreshes page after posting comment
+        location.reload();
     } catch (error) {
         console.error('Error adding comment.', error);
     }
 };
 
+const toggleCommentForm = async (event) => {
+    if (newCommentForm.style.display === 'none') {
+        newCommentForm.style.display = 'block';
+      } else {
+        const commentBody = document.getElementById("commentBody");
+        commentBody.value = "";
+        newCommentForm.style.display = 'none';
+      }
+}
+
+newCommentForm.style.display = 'none';
+
+// event listener for submit button
+postBtn.addEventListener('click', (event) => {
+    addComment();
+});
+
+// event listener for submit button
+replyBtn.addEventListener('click', (event) => {
+    toggleCommentForm();
+});
+
+cancelBtn.addEventListener('click', (event) => {
+    toggleCommentForm();
+});
