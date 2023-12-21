@@ -18,6 +18,10 @@ Comment.init(
         len: [1]
       }
     },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     fileURL: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -46,3 +50,5 @@ Comment.init(
 );
 
 module.exports = Comment;
+
+

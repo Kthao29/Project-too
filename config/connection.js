@@ -19,6 +19,7 @@ if (process.env.JAWSDB_URL) {
   );
 }
 
+
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTHDOMAIN,

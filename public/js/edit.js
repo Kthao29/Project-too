@@ -47,3 +47,4 @@ fileInput.onchange = () => {
     fileName.textContent = fileInput.files[0].name;
     }
 }
+

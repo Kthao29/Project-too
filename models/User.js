@@ -35,6 +35,10 @@ User.init(
         len: [8],
       },
     },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     fileURL: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -56,3 +60,5 @@ User.init(
 );
 
 module.exports = User;
+
+
