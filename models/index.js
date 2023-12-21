@@ -21,10 +21,12 @@ Comment.belongsTo(Project, {
 
 User.hasMany(Comment, {
     foreignKey: 'user_id',
+    onDelete: 'Cascade'
 });
 
 Project.hasMany(Comment, {
     foreignKey: 'project_id',
+    onDelete: 'Cascade'
 });
 
 Category.belongsTo(Project, {
