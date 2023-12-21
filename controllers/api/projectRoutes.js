@@ -30,12 +30,12 @@ router.post('/', [withAuth, upload.any('file')], async (req, res) => {
 
         if (req.files) {
             downloadURL = await uploadAnyToStorage(storage, req.files, 'projectfiles');
-            //await Comment.update({filename: downloadURL}, {
-            //where: {id: newProject.id}
-            //})
+            await Comment.update({filename: downloadURL}, {
+              where: {id: newProject.id}
+            })
         };
-        
-        res.status(200).json([newProject, req.file]);
+            
+        res.status(200).json(newProject);
     } catch (err) { 
         res.status(400).json(err);
     }
@@ -52,9 +52,9 @@ router.put('/:id', [withAuth, upload.any('file')], async (req, res) => {
 
         if (req.file) {
             downloadURL = await uploadAnyToStorage(storage, req.file, 'projectfiles');
-            //await Comment.update({filename: downloadURL}, {
-            //where: {id: newProject.id}
-            //})
+            await Comment.update({filename: downloadURL}, {
+              where: {id: req.params.id}
+            })
         };
 
         res.status(200).json('Post Updated');
@@ -84,5 +84,3 @@ router.delete('/:id', withAuth, async (req, res) => {
 });
 
 module.exports = router;
-
-
