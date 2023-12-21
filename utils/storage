@@ -16,7 +16,21 @@ async function uploadFileToStorage(storage, file, directory) {
   return downloadURL;
 }
 
-module.exports = { uploadFileToStorage };
+async function uploadAnyToStorage(storage, file, directory) {
+
+  const storageRef = ref(storage, `${directory}/${Date.now() + '-' + file[0].originalname}`);
+  
+  const metadata = {
+    contentType: file[0].mimetype,
+  };
+  
+  const snapshot = await uploadBytesResumable(storageRef, file[0].buffer, metadata);
+  const downloadURL = await getDownloadURL(snapshot.ref);
+
+  return downloadURL;
+}
+
+module.exports = { uploadFileToStorage, uploadAnyToStorage };
 
 // Old code directing routes to save files on server
 /**const profilePic = multer.diskStorage({

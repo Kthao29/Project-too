@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
-const { uploadFileToStorage } = require('../../utils/storage');
+const { uploadAnyToStorage } = require('../../utils/storage');
 const { getStorage } = require('firebase/storage');
 const { initializeApp } = require('firebase/app');
 const { firebaseConfig } = require('../../config/connection');
@@ -28,10 +28,10 @@ router.post('/', [withAuth, upload.any('file')], async (req, res) => {
 
         let downloadURL;
 
-        if (req.file) {
-            downloadURL = await uploadFileToStorage(storage, req.files, 'projectfiles');
+        if (req.files) {
+            downloadURL = await uploadAnyToStorage(storage, req.files, 'projectfiles');
             //await Comment.update({filename: downloadURL}, {
-            //where: {: req.body.username}
+            //where: {id: newProject.id}
             //})
         };
         
@@ -51,7 +51,7 @@ router.put('/:id', [withAuth, upload.any('file')], async (req, res) => {
         let downloadURL;
 
         if (req.file) {
-            downloadURL = await uploadFileToStorage(storage, req.file, 'projectfiles');
+            downloadURL = await uploadAnyToStorage(storage, req.file, 'projectfiles');
             //await Comment.update({filename: downloadURL}, {
             //where: {id: newProject.id}
             //})

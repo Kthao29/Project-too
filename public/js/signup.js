@@ -10,12 +10,14 @@ const signupFormHandler = async (event) => {
 
     // sends POST request to server
     if (username && email && password) {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('email', email);
+        formData.append('password', password);
+
         const response = await fetch('/api/users/', {
             method: 'POST',
-            body: JSON.stringify({ 
-                username: username, 
-                email: email, 
-                password: password }),
+            body: formData,
         });
         // checks response status
         if (response.ok) {

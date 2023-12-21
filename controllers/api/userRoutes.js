@@ -29,7 +29,7 @@ router.post('/', upload.single('file'), async (req, res) => {
 
     if (req.file) {
         downloadURL = await uploadFileToStorage(storage, req.file, 'profiles');
-        await User.update({fileURL: downloadURL}, {
+        await User.update({filename: downloadURL}, {
           where: {id: dbUserData.id}
         })
     }

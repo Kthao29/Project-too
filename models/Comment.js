@@ -20,10 +20,6 @@ Comment.init(
     },
     filename: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    fileURL: {
-      type: DataTypes.STRING,
       allowNull: true,
     },
     user_id: {
