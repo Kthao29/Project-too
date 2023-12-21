@@ -8,8 +8,6 @@
       
       {{!-- SIGN UP FORM --}}
   <form class="form signup-form" action="/profile" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" />
-
           <div class="card">
             <div class="card-content">
 
@@ -24,13 +22,13 @@
               {{!-- PROFILE PHOTO UPLOAD --}}
               <div class="field">
                   <label class="label">Profile Picture</label>
-                  <div class="file has-name">
+                  <div class="file has-name" id="fileUpload">
                       <label class="file-label">
                           <input class="file-input" type="file" name="resume">
                           <span class="file-cta">
                               <span class="file-label">⬆📁</span>
                           </span>
-                          <span class="file-name">file-placeholder.jpg</span>
+                          <span class="file-name">Upload a File</span>
                       </label>
                   </div>
               </div>
