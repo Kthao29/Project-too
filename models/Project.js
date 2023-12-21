@@ -19,6 +19,13 @@ Project.init(
             type: DataTypes.TEXT('long'),
             allowNull: false
         }, 
+        category_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'category',
+                key: 'id'
+            }
+        },
         user_id: {
             type: DataTypes.INTEGER,
             references: {
@@ -36,3 +43,5 @@ Project.init(
 );
 
 module.exports = Project;
+
+

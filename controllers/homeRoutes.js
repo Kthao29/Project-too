@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Project, Comment } = require('../models');
+const { User, Project, Comment, Category } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -104,6 +104,8 @@ router.get('/mylab', async (req, res) => {
       ]
     });
 
+    
+
     const user = userData.get({ plain: true });
     console.log(user);
 
@@ -116,6 +118,34 @@ router.get('/mylab', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
+
+
+router.get('/categories', async (req, res) => {
+  try {
+    const categoryData = await Category.findAll({
+      attributes: ['id', 'name'], // Adjust attributes based on your Category model
+      include: [
+        {
+          model: Project,
+          attributes: ['id', 'title', 'body', 'user_id'],
+        },
+      ],
+    });
+
+    const categories = categoryData.map((category) => category.get({ plain: true }));
+
+    res.render('category', {
+      categories,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 
 // controller to load the profile page of a user and pull in their projects
 router.get('/:id', withAuth, async (req, res) => {
@@ -142,3 +172,5 @@ router.get('/:id', withAuth, async (req, res) => {
 });
 
 module.exports = router;
+
+
