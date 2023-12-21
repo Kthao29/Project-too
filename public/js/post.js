@@ -26,7 +26,7 @@ const submitPost = async (event) => {
 
             console.log('Project successfully posted', data);
 
-            newProjectID = data[0].id;
+            newProjectID = data.id;
             if (newProjectID) {
                 document.location.replace(`/project/${newProjectID}`);
             }

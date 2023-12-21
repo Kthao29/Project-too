@@ -30,7 +30,7 @@ router.post('/', [withAuth, upload.any('file')], async (req, res) => {
 
         if (req.files) {
             downloadURL = await uploadAnyToStorage(storage, req.files, 'projectfiles');
-            await Comment.update({filename: downloadURL}, {
+            await Project.update({filename: downloadURL}, {
               where: {id: newProject.id}
             })
         };
@@ -51,8 +51,8 @@ router.put('/:id', [withAuth, upload.any('file')], async (req, res) => {
         let downloadURL;
 
         if (req.file) {
-            downloadURL = await uploadAnyToStorage(storage, req.file, 'projectfiles');
-            await Comment.update({filename: downloadURL}, {
+            downloadURL = await uploadAnyToStorage(storage, req.files, 'projectfiles');
+            await Project.update({filename: downloadURL}, {
               where: {id: req.params.id}
             })
         };
