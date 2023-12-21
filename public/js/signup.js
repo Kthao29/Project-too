@@ -12,8 +12,10 @@ const signupFormHandler = async (event) => {
     if (username && email && password) {
         const response = await fetch('/api/users/', {
             method: 'POST',
-            body: JSON.stringify({ username: username, email: email, password: password }),
-            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                username: username, 
+                email: email, 
+                password: password }),
         });
         // checks response status
         if (response.ok) {
@@ -29,5 +31,13 @@ document
     .querySelector('.signup-form')
     .addEventListener('submit', signupFormHandler);
 
+//handles file input/updates rendered file name
+const fileInput = document.querySelector('#fileUpload input[type=file]');
 
-    
+fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+    const fileName = document.querySelector('#fileUpload .file-name');
+    fileName.textContent = fileInput.files[0].name;
+    }
+    console.log(fileInput.files[0]);
+}

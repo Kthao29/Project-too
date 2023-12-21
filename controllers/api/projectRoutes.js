@@ -1,30 +1,61 @@
 const router = require('express').Router();
 const { Project } = require('../../models');
 const withAuth = require('../../utils/auth');
-const { projectFiles } = require('../../utils/multerStorage');
+const { uploadFileToStorage } = require('../../utils/storage');
+const { getStorage } = require('firebase/storage');
+const { initializeApp } = require('firebase/app');
+const { firebaseConfig } = require('../../config/connection');
+const multer  = require('multer');
 
+initializeApp(firebaseConfig);
+const storage = getStorage();
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024 // limit to 5MB
+  }
+});
 
 
 // Controller to create a new project
-router.post('/', [withAuth, projectFiles.any('file')], async (req, res) => {
+router.post('/', [withAuth, upload.any('file')], async (req, res) => {
     try {
         const newProject = await Project.create({
-            ...req.body, 
+            title: req.body.title,
+            body: req.body.body, 
             user_id: req.session.user_id
         });
 
-        res.status(200).json(newProject);
-    } catch (err) {
+        let downloadURL;
+
+        if (req.file) {
+            downloadURL = await uploadFileToStorage(storage, req.files, 'projectfiles');
+            //await Comment.update({filename: downloadURL}, {
+            //where: {: req.body.username}
+            //})
+        };
+            
+        res.status(200).json([newProject, req.file]);
+    } catch (err) { 
         res.status(400).json(err);
     }
 });
 
 //Controller to update an existing project
-router.put('/:id', [withAuth, projectFiles.any('file')], async (req, res) => {
+router.put('/:id', [withAuth, upload.any('file')], async (req, res) => {
     try {
         await Project.update(req.body, {
             where: {id: req.params.id}
         });
+
+        let downloadURL;
+
+        if (req.file) {
+            downloadURL = await uploadFileToStorage(storage, req.file, 'projectfiles');
+            //await Comment.update({filename: downloadURL}, {
+            //where: {id: newProject.id}
+            //})
+        };
 
         res.status(200).json('Post Updated');
     } catch (err) {

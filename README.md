@@ -1,5 +1,4 @@
-# <Create-Lab>
-
+# ![Create Lab](./public/images/createLab-logo-full-w.svg)
 
 ## Description
 

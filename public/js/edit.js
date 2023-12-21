@@ -2,33 +2,47 @@
 const editFormHandler = async (event) => {
     event.preventDefault();
 
-    const id = window.location.toString().split('/')[
-        window.location.toString().split('/').length - 1
-    ];
+    const idEl = document.getElementById("contains-id");
+    const postID = idEl.getAttribute("data-id");
 
     // retrieving post title and text data 
-    const postTitle = document.querySelector('input[name="post-title"]').value;
-    const postText = document.querySelector('textarea[name="post-text"]').value;
+    const updatedTitle = document.getElementById('postTitleInput').value;
+    const updatedBody = document.getElementById('postBodyInput').value;
 
-    // sends PUT request 
-    const response = await fetch(`/api/posts/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            postTitle,
-            postText
-        }),
-        headers: {
-            'Content-Type': 'application/json'
+    console.log(postID + " // " + updatedTitle + " // " + updatedBody);
+
+    if (updatedTitle && updatedBody) {
+        // sends PUT request 
+        try {
+            // sends a PUT request
+            const response = await fetch(`/api/projects/${postID}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    title: updatedTitle,
+                    body: updatedBody,
+                }),
+            });
+    
+            // retrieves and logs post update
+            const data = await response.json();
+            console.log("Your post has been updated!", data);
+            document.location.replace(`/mylab`);
+        } catch (error) {
+            console.error("Error updating post! Edit not saved.", error);
+
         }
-    });
-    // checks response status
-    if (response.ok) {
-        document.location.replace('/dashboard');
-    } else {
-        alert(response.statusText);
     }
 };
 
 document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
 
+//handles file input/updates rendered file name
+const fileInput = document.querySelector('#fileUpload input[type=file]');
 
+fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+    const fileName = document.querySelector('#fileUpload .file-name');
+    fileName.textContent = fileInput.files[0].name;
+    }
+    console.log(fileInput.files[0]);
+}

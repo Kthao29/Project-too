@@ -7,7 +7,7 @@
       <p class="title is-4">Post your project:</p>
       
       {{!-- NEW POST FORM --}}
-      <form class="form post-form">
+      <form class="form new-post-form">
         <div class="card">
           <div class="card-content">
 
@@ -30,13 +30,13 @@
             {{!-- PROJECT FILE UPLOAD --}}
             <div class="field">
                 <label class="label">Upload Project Files</label>
-                <div class="file has-name">
+                <div class="file has-name" id="fileUpload">
                     <label class="file-label">
                         <input class="file-input" type="file" name="resume">
                         <span class="file-cta">
                             <span class="file-label">⬆📁</span>
                         </span>
-                        <span class="file-name">file-placeholder.jpg</span>
+                        <span class="file-name">Upload a File</span>
                     </label>
                 </div>
             </div>

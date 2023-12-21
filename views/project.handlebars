@@ -1,4 +1,4 @@
-<div class="container p-4">
+<div class="container p-4 is-fullheight">
 
     {{!-- POST CARD EXAMPLE --}}
     <div class="card post m-4">
@@ -12,13 +12,14 @@
                 </figure>
                 </div>
                 {{!-- POST TITLE/USERNAME --}}
+                <div id="projectID" data-postID="{{id}}"></div>
                 <div class="media-content">
-                <p class="title is-4">Why Test Posts Are Very Important</p>
-                <p class="subtitle bold is-6">@username25 // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
+                <p class="title is-4">{{title}}</p>
+                <p class="subtitle bold is-6">{{user.name}} // <time datetime="2016-1-1">11:09 PM - 14 Dec 2023</time></p>
                 </div>
             </div>
             <hr>
-            <div class="content has-text-black"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+            <div class="content has-text-black"> {{body}}
                 <br><br>
                 <a>Download File here or whatever</a>
                 <br><br>
@@ -26,12 +27,57 @@
         </div>
         {{!-- CARD BUTTONS --}}
             <footer class="card-footer">
-                <a href="#" class="card-footer-item">Reply</a>
-                <a href="#" class="card-footer-item">Like 👍</a>
+                <a class="card-footer-item" id="replyBtn">Reply</a>
+                <a class="card-footer-item" id="likeBtn">Like 👍</a>
             </footer>
     </div>
-    
-    {{!-- POSTED COMMENT CARD EXAMPLE --}}
+
+    {{!-- NEW COMMENT FORM --}}
+    <form class="newCommentForm">
+        <div class="card m-4">
+            <div class="card-content">
+
+                    {{!-- TEXT AREA INPUT --}}
+                    <div class="field">
+                        <label class="label has-text-blue bold">New Reply</label>
+                        <div class="control">
+                        <textarea class="textarea" placeholder="Write your comment here!" id="commentBody"></textarea>
+                        </div>
+                    </div>
+
+                    {{!-- FILE UPLOAD --}}
+                    <div class="field">
+                        <div class="file has-name" id="fileUpload">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="resume">
+                                <span class="file-cta">
+                                    <span class="file-label">⬆📁</span>
+                                </span>
+                                <span class="file-name">Upload a File</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    {{!-- SUBMIT/CANCEL BUTTONS --}}
+                    <div class="field is-grouped">
+                    <p class="control">
+                        <a class="button is-primary" id="postBtn">
+                        Submit
+                        </a>
+                    </p>
+                    <p class="control">
+                        <a class="button is-light" id="cancelBtn">
+                        Cancel
+                        </a>
+                    </p>
+                    </div>
+
+            </div>
+        </div>
+    </form>
+
+    {{!-- POPULATE COMMENTS --}}
+    {{#each comments as |comment|}}
     <div class="card comment m-4">
         <div class="card-content">
             {{!-- HEADER --}}
@@ -39,24 +85,26 @@
                 {{!-- PROFILE PICTURE --}}
                 <div class="media-left">
                 <figure class="image is-48x48">
-                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image">
+                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image" data-commentID="{{id}}">
                 </figure>
                 </div>
                 {{!-- USERNAME/TIMESTAMP --}}
                 <div class="media-content">
-                <p class="title is-6 has-text-darkrose">@username42</p>
+                <p class="title is-6 has-text-darkrose">{{this.user.name}}</p>
                 <p class="subtitle is-6 has-text-black">11:24 PM - 14 Dec 2023</p>
                 </div>
             </div>
             <hr>
             {{!-- COMMENT BODY --}}
-            <div class="content has-text-black"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. Lorem ipsum? I hardly know er'! *slaps knee* 😂😂😂
+            <div class="content has-text-black"> {{this.comment_text}}
                 <br><br>
                 {{!-- DOWNLOAD LINK (IF FILE ATTACHED) --}}
                 <a>Download File here or whatever</a>
             </div>
         </div>
     </div>
+    {{/each}}
+</div>
 
     {{!-- NEW COMMENT FORM --}}
     <div class="card m-4">
@@ -102,3 +150,5 @@
 </div>
 
 
+<script src="/js/comment.js"></script>
+<script src="/js/project.js"></script>

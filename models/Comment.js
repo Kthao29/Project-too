@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { sequelize } = require('../config/connection');
 
 class Comment extends Model { }
 
@@ -21,6 +21,10 @@ Comment.init(
     filename: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    fileURL: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     user_id: {
       type: DataTypes.INTEGER,

@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { sequelize } = require('../config/connection');
 
 class Project extends Model { }
 
@@ -29,6 +29,10 @@ Project.init(
                 model: 'category',
                 key: 'id'
             }
+        },
+        fileURL: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         user_id: {
             type: DataTypes.INTEGER,
