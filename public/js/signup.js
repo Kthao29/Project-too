@@ -5,28 +5,34 @@ const signupFormHandler = async (event) => {
     const username = document.querySelector('.username-signup').value;
     const email = document.querySelector('.email-signup').value;
     const password = document.querySelector('.password-signup').value;
+    const file = fileInput.files[0];
 
     console.log([username, email, password]);
 
     // sends POST request to server
     if (username && email && password) {
+
         const formData = new FormData();
+        formData.append('file', file);
         formData.append('username', username);
         formData.append('email', email);
         formData.append('password', password);
 
-        const response = await fetch('/api/users/', {
+        fetch('/api/users/', {
             method: 'POST',
             body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log('User successfully created', data);
+        document.location.replace(`/`);
+        })
+        .catch(error => {
+            console.error('Error creating user: ', error);
         });
-        // checks response status
-        if (response.ok) {
-            alert('Success! Account has been created. You will now be redirected to the dashboard.');
-            document.location.replace('/');
         } else {
             alert(`Unsuccessful sign up.${errorMessage}`);
         }
-    };
 };
 
 document
