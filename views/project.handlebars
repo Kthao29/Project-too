@@ -8,7 +8,7 @@
                 {{!-- PROFILE PICTURE --}}
                 <div class="media-left">
                 <figure class="image is-64x64">
-                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image">
+                    <img class="is-rounded" src="{{user.filename}}" alt="Profile image">
                 </figure>
                 </div>
                 {{!-- POST TITLE/USERNAME --}}
@@ -21,7 +21,7 @@
             <hr>
             <div class="content has-text-black"> {{body}}
                 <br><br>
-                <a>Download File here or whatever</a>
+                <a href="{{filename}}">{{filename}}</a>
                 <br><br>
             </div>
         </div>
@@ -85,7 +85,7 @@
                 {{!-- PROFILE PICTURE --}}
                 <div class="media-left">
                 <figure class="image is-48x48">
-                    <img class="is-rounded" src="https://images2.imgbox.com/90/0c/3L5OF7gf_o.png" alt="Profile image" data-commentID="{{id}}">
+                    <img class="is-rounded" src="{{this.user.filename}}" alt="Profile image" data-commentID="{{id}}">
                 </figure>
                 </div>
                 {{!-- USERNAME/TIMESTAMP --}}

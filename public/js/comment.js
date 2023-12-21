@@ -45,13 +45,13 @@ const addComment = async (event) => {
     console.log(fileInput.files[0]);
     const file = fileInput.files[0];
 
-    if (file) {
+    if (commentBody) {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('comment_text', commentBody.value);
         formData.append('project_id', projectID);
 
-        fetch('/api/projects/', {
+        fetch('/api/comments/', {
             method: 'POST',
             body: formData,
         })
@@ -65,7 +65,7 @@ const addComment = async (event) => {
             console.error('Error posting project: ', error);
         });
     } else {
-        console.error('No file selected');
+        console.error('Could not post comment');
     }
 }
 
