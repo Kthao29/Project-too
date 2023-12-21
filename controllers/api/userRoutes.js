@@ -29,22 +29,16 @@ router.post('/', upload.single('file'), async (req, res) => {
 
     if (req.file) {
         downloadURL = await uploadFileToStorage(storage, req.file, 'profiles');
-        //await User.update({filename: downloadURL}, {
-          //where: {id: dbUserData.id}
-        //})
+        await User.update({fileURL: downloadURL}, {
+          where: {id: dbUserData.id}
+        })
     }
 
     req.session.save(() => {
       req.session.user_id = dbUserData.id  
       req.session.logged_in = true;
 
-      res.status(200).send({
-        message: 'User Created',
-        downloadURL
-        //name: req.file.originalname,
-        //type: req.file.mimetype,
-        //downloadURL: downloadURL
-        })
+      res.status(200).send([dbUserData, downloadURL])
       });
   } catch (err) {
     console.log(err);
