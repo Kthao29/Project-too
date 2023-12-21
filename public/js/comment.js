@@ -51,7 +51,7 @@ const addComment = async (event) => {
         formData.append('comment_text', commentBody.value);
         formData.append('project_id', projectID);
 
-        fetch('/api/projects/', {
+        fetch('/api/comments/', {
             method: 'POST',
             body: formData,
         })
