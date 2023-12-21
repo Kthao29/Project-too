@@ -28,14 +28,14 @@ router.post('/', [withAuth, upload.any('file')], async (req, res) => {
 
         let downloadURL;
 
-        if (req.files) {
+        if (req.file) {
             downloadURL = await uploadFileToStorage(storage, req.files, 'projectfiles');
             //await Comment.update({filename: downloadURL}, {
             //where: {: req.body.username}
             //})
         };
             
-        res.status(200).json([newProject, req.files]);
+        res.status(200).json([newProject, req.file]);
     } catch (err) { 
         res.status(400).json(err);
     }

@@ -17,9 +17,6 @@ const editFormHandler = async (event) => {
             // sends a PUT request
             const response = await fetch(`/api/projects/${postID}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
                 body: JSON.stringify({
                     title: updatedTitle,
                     body: updatedBody,
@@ -38,3 +35,14 @@ const editFormHandler = async (event) => {
 };
 
 document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
+
+//handles file input/updates rendered file name
+const fileInput = document.querySelector('#fileUpload input[type=file]');
+
+fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+    const fileName = document.querySelector('#fileUpload .file-name');
+    fileName.textContent = fileInput.files[0].name;
+    }
+    console.log(fileInput.files[0]);
+}

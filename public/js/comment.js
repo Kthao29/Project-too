@@ -18,9 +18,6 @@ const addComment = async (event) => {
         // sends POST request to server
         const response = await fetch('/api/comments/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 comment_text: commentBody,
                 project_id: projectID,
@@ -63,3 +60,14 @@ replyBtn.addEventListener('click', (event) => {
 cancelBtn.addEventListener('click', (event) => {
     toggleCommentForm();
 });
+
+//handles file input/updates rendered file name
+const fileInput = document.querySelector('#fileUpload input[type=file]');
+
+fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+    const fileName = document.querySelector('#fileUpload .file-name');
+    fileName.textContent = fileInput.files[0].name;
+    }
+    console.log(fileInput.files[0]);
+}
