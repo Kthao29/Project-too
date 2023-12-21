@@ -21,7 +21,7 @@ Project.init(
         }, 
         filename: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
           },
         category_id: {
             type: DataTypes.INTEGER,
@@ -29,10 +29,6 @@ Project.init(
                 model: 'category',
                 key: 'id'
             }
-        },
-        fileURL: {
-            type: DataTypes.STRING,
-            allowNull: true,
         },
         user_id: {
             type: DataTypes.INTEGER,
