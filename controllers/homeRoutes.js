@@ -130,8 +130,6 @@ router.get('/mylab', async (req, res) => {
       ]
     });
 
-    
-
     const user = userData.get({ plain: true });
     console.log(user);
 
