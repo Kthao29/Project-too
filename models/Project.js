@@ -19,6 +19,10 @@ Project.init(
             type: DataTypes.TEXT('long'),
             allowNull: false
         }, 
+        filename: {
+            type: DataTypes.STRING,
+            allowNull: false,
+          },
         category_id: {
             type: DataTypes.INTEGER,
             references: {

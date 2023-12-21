@@ -35,6 +35,10 @@ User.init(
         len: [8],
       },
     },
+    filename: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     hooks: {
