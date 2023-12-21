@@ -11,7 +11,7 @@ const updatePost = async (event) => {
     console.log(fileInput.files[0]);
     const file = fileInput.files[0];
 
-    if (file) {
+    if (postTitle && postBody) {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('title', postTitle.value);
