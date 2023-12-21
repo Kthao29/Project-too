@@ -1,40 +1,42 @@
-// function to handle post edit form submission
-const editFormHandler = async (event) => {
+const projectID = document.querySelector('#contains-id').getAttribute('data-id');
+
+const updatePost = async (event) => {
+    
     event.preventDefault();
 
-    const idEl = document.getElementById("contains-id");
-    const postID = idEl.getAttribute("data-id");
+    // retrieves post data 
+    const postTitle = document.getElementById('postTitleInput');
+    const postBody = document.getElementById('postBodyInput');
 
-    // retrieving post title and text data 
-    const updatedTitle = document.getElementById('postTitleInput').value;
-    const updatedBody = document.getElementById('postBodyInput').value;
+    console.log(fileInput.files[0]);
+    const file = fileInput.files[0];
 
-    console.log(postID + " // " + updatedTitle + " // " + updatedBody);
-
-    if (updatedTitle && updatedBody) {
-        // sends PUT request 
-        try {
-            // sends a PUT request
-            const response = await fetch(`/api/projects/${postID}`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    title: updatedTitle,
-                    body: updatedBody,
-                }),
-            });
-    
-            // retrieves and logs post update
-            const data = await response.json();
-            console.log("Your post has been updated!", data);
-            document.location.replace(`/mylab`);
-        } catch (error) {
-            console.error("Error updating post! Edit not saved.", error);
-
-        }
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', postTitle.value);
+        formData.append('body', postBody.value);
+        
+        fetch(`/api/projects/${projectID}`, {
+            method: 'PUT',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log('Project successfully updated', data);
+        document.location.replace(`/project/${projectID}`);
+        })
+        .catch(error => {
+            console.error('Error posting project: ', error);
+        });
+    } else {
+        console.error('No file selected');
     }
-};
+}
 
-document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
+// event listener for update submit
+const form = document.querySelector('.update-post-form');
+form.addEventListener('submit', updatePost);
 
 //handles file input/updates rendered file name
 const fileInput = document.querySelector('#fileUpload input[type=file]');
@@ -44,5 +46,5 @@ fileInput.onchange = () => {
     const fileName = document.querySelector('#fileUpload .file-name');
     fileName.textContent = fileInput.files[0].name;
     }
-    console.log(fileInput.files[0]);
 }
+

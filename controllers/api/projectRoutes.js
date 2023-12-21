@@ -34,7 +34,7 @@ router.post('/', [withAuth, upload.any('file')], async (req, res) => {
             //where: {: req.body.username}
             //})
         };
-            
+        
         res.status(200).json([newProject, req.file]);
     } catch (err) { 
         res.status(400).json(err);
