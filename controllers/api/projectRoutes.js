@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Project } = require('../../models');
+const { Project, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 const { uploadAnyToStorage } = require('../../utils/storage');
 const { getStorage } = require('firebase/storage');
@@ -67,6 +67,11 @@ router.put('/:id', [withAuth, upload.any('file')], async (req, res) => {
 // Controller to delete an existing project
 router.delete('/:id', withAuth, async (req, res) => {
     try {
+        const commentDelete = Comment.destroy({
+            where: {
+                project_id: req.params.id
+            }
+        })
         const projectData = Project.destroy({
             where: {
                 id: req.params.id, 

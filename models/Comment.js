@@ -26,14 +26,18 @@ Comment.init(
       type: DataTypes.INTEGER,
       references: {
         model: 'user',
-        key: 'id'
+        key: 'id',
+        onDelete: 'Cascade',
+        onUpdate: 'Cascade'
       }
     },
     project_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'project',
-        key: 'id'
+        key: 'id', 
+        onDelete: 'Cascade',
+        onUpdate: 'Cascade'
       }
     }
   },
