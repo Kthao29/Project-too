@@ -19,6 +19,10 @@ Project.init(
             type: DataTypes.TEXT('long'),
             allowNull: false
         }, 
+        fileURL: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         user_id: {
             type: DataTypes.INTEGER,
             references: {

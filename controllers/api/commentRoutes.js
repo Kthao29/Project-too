@@ -28,9 +28,9 @@ router.post('/', [withAuth, upload.single('file')], async (req, res) => {
 
         if (req.file) {
             downloadURL = await uploadFileToStorage(storage, req.file, 'commentfiles');
-            //await Comment.update({filename: downloadURL}, {
-            //where: {id: newComment.id}
-            //})
+            await Comment.update({fileURL: downloadURL}, {
+              where: {id: newComment.id}
+            })
         };
 
         res.status(200).json([newComment, downloadURL]);
@@ -50,9 +50,9 @@ router.put('/:id', [withAuth, upload.single('file')], async (req, res) => {
 
         if (req.file) {
             downloadURL = await uploadFileToStorage(storage, req.file, 'commentfiles');
-            //await Comment.update({filename: downloadURL}, {
-            //where: {id: newComment.id}
-            //})
+            await Comment.update({fileURL: downloadURL}, {
+              where: {id: req.params.id}
+            })
         };
 
         res.status(200).json('Post Updated');
