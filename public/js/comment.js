@@ -13,11 +13,13 @@ const addComment = async (event) => {
 
         const commentBody = document.getElementById("commentBody").value;
 
+        console.log(commentBody, projectID);
+
         // sends POST request to server
         const response = await fetch('/api/comments/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 comment_text: commentBody,
