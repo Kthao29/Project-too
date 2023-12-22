@@ -4,6 +4,8 @@ const session = require('express-session');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
+const seedDatabase = require('./seeds/seed');
+const { User } = require('./models/index')
 
 const { sequelize } = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -37,7 +39,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: true }).then(async () => {
+  const seeds = await User.findAll();
+  if (seeds < 1) {
+    await seedDatabase();
+    console.log('database seeded');
+  }
   app.listen(PORT, () => console.log('Now listening'));
 });
 

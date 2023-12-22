@@ -6,14 +6,12 @@ const seedUsers = require('./user-seeds');
 
 
 const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
   await seedUsers();
   await seedProjects();
   await seedComments();
-    
-  process.exit(0);
 };
 
-seedDatabase();
+module.exports = seedDatabase
 
 
