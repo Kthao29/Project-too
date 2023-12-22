@@ -33,7 +33,7 @@ Welcome to Create Lab, a vibrant artistic haven made for creatives, by creatives
 ## Screenshot 
 ![Create Lab](./public/images/SCR-20231221-siae.jpeg)
 
-![Create Lab](./public/images/SCR-20231221-sihu.jpeg)
+![Create Lab](./public/images/SCR-20231221-sihu.png)
 
 ## Visit our Application!
 
